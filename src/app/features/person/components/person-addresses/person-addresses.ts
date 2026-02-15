@@ -1,5 +1,6 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { ManualInput } from '../../../../shared/ui/inputs/manual-input/manual-input';
 import { SelectInput } from '../../../../shared/ui/inputs/select-input/select-input';
@@ -9,11 +10,13 @@ import { ViewItem } from '../../../../shared/ui/view/view-item/view-item';
 @Component({
   selector: 'app-person-addresses',
   standalone: true,
-  imports: [CommonModule, ManualInput, SelectInput, ViewItem, NgIf],
+  imports: [CommonModule, ManualInput, SelectInput, ViewItem, NgIf, ReactiveFormsModule],
   templateUrl: './person-addresses.html',
   styleUrls: ['./person-addresses.scss'],
 })
 export class PersonAddresses implements OnChanges {
+  private fb = new FormBuilder();
+
   // ---------- Inputs ----------
   @Input() isLocked = false;
   @Input() isEditMode = false;
@@ -47,7 +50,7 @@ export class PersonAddresses implements OnChanges {
   @Input() postalCode = '';
 
   // ---------- Outputs ----------
-  @Output() countryChange = new EventEmitter<number | string | null>();
+  // @Output() countryChange = new EventEmitter<number | string | null>();
   @Output() regionChange = new EventEmitter<number | string | null>();
   @Output() provinceChange = new EventEmitter<number | string | null>();
   @Output() cityChange = new EventEmitter<number | string | null>();
@@ -61,6 +64,9 @@ export class PersonAddresses implements OnChanges {
   @Output() addressLine2Change = new EventEmitter<string>();
   @Output() postalCodeChange = new EventEmitter<string>();
 
+  // ---------- Reactive Form (country only) ----------
+  form!: FormGroup;
+
   // ---------- Derived UI states ----------
   isRegionDisabled = true;
   isProvinceDisabled = true;
@@ -72,6 +78,13 @@ export class PersonAddresses implements OnChanges {
   isCityTextDisabled = true;
 
   ngOnChanges(_changes: SimpleChanges): void {
+    this.form = this.fb.group({
+      countryId: [this.selectedCountryId ?? null]
+    });
+
+    this.form.get('countryId')!.valueChanges.subscribe(countryId => {
+      this.handleCountryChanged(countryId);
+    });
     this.computeDisabledStates();
   }
 
@@ -190,4 +203,28 @@ export class PersonAddresses implements OnChanges {
   private hasValue(v: any): boolean {
     return v !== null && v !== undefined && String(v) !== '';
   }
+
+  private handleCountryChanged(countryId: number | string | null): void {
+    console.log('Country changed:', countryId);
+
+    // 1️⃣ Determine PH vs Non-PH (adjust ID as needed)
+    const PH_ID = 1; // change to your real Philippines ID
+    this.isPhilippines = String(countryId) === String(PH_ID);
+
+    // 2️⃣ Recompute disabled states
+    this.computeDisabledStates();
+
+    // 3️⃣ (Future step) Reset downstream controls when we migrate them
+    // Example:
+    // this.form.patchValue({
+    //   regionId: null,
+    //   provinceId: null,
+    //   cityId: null,
+    //   barangayId: null
+    // }, { emitEvent: false });
+  }
+  
 }
+
+
+

@@ -5,7 +5,9 @@ import {
   Output,
   OnChanges,
   SimpleChanges,
+  forwardRef
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SelectItem } from '../../../models/select-item';
 
@@ -15,8 +17,42 @@ import { SelectItem } from '../../../models/select-item';
   imports: [CommonModule],
   templateUrl: './select-input.html',
   styleUrls: ['./select-input.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectInput),
+      multi: true,
+    },
+  ],
 })
-export class SelectInput implements OnChanges {
+
+export class SelectInput implements OnChanges, ControlValueAccessor {
+
+  private onChange: (value: number | string | null) => void = () => { };
+  private onTouched: () => void = () => { };
+
+  writeValue(value: number | string | null): void {
+    // Angular will call this when the FormControl value changes
+    this.value = value ?? null;
+    this.isUserTyping = false;
+    this.syncDisplayFromValue();
+    this.closeDropdown();
+  }
+
+  registerOnChange(fn: (value: number | string | null) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    if (this.disabled) this.closeDropdown();
+  }
+
+
   // ---------- Inputs ----------
   @Input() label = '';
   @Input() placeholder = '';
@@ -190,4 +226,5 @@ export class SelectInput implements OnChanges {
     const found = (this.items ?? []).find((x) => String(x.id) === String(this.value));
     this.inputValue = found?.name ?? '';
   }
+
 }

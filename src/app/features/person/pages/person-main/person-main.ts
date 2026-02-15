@@ -278,75 +278,75 @@ export class PersonMain implements OnInit {
     return Number.isInteger(n) && n > 0;
   }
 
-  // child emits ids
-  onCountryChanged(countryId: number | string | null): void {
-    // immediate update for UI switch
-    this.selectedCountryId.set(countryId);
+  // // child emits ids
+  // onCountryChanged(countryId: number | string | null): void {
+  //   // immediate update for UI switch
+  //   this.selectedCountryId.set(countryId);
 
-    this.addressForm.patchValue(
-      {
-        countryId,
+  //   this.addressForm.patchValue(
+  //     {
+  //       countryId,
 
-        regionId: null,
-        provinceId: null,
-        cityId: null,
-        barangayId: null,
+  //       regionId: null,
+  //       provinceId: null,
+  //       cityId: null,
+  //       barangayId: null,
 
-        regionText: '',
-        provinceText: '',
-        cityText: '',
+  //       regionText: '',
+  //       provinceText: '',
+  //       cityText: '',
 
-        addressLine1: '',
-        addressLine2: '',
-        postalCode: '',
-      },
-      { emitEvent: true },
-    );
+  //       addressLine1: '',
+  //       addressLine2: '',
+  //       postalCode: '',
+  //     },
+  //     { emitEvent: true },
+  //   );
 
-    // reset dependent option lists
-    this.provinces = [];
-    this.barangays = [];
-    this.isBarangaysLoaded = true;
+  //   // reset dependent option lists
+  //   this.provinces = [];
+  //   this.barangays = [];
+  //   this.isBarangaysLoaded = true;
 
-    // refresh regions list for PH
-    this.regions = this.isPH ? this.allRegions.map(({ id, name }) => ({ id, name })) : [];
+  //   // refresh regions list for PH
+  //   this.regions = this.isPH ? this.allRegions.map(({ id, name }) => ({ id, name })) : [];
 
-    // ✅ city-first list behavior
-    this.refreshCityOptions();
+  //   // ✅ city-first list behavior
+  //   this.refreshCityOptions();
 
-    this.syncAddressControlStates();
-  }
+  //   this.syncAddressControlStates();
+  // }
 
-  onRegionChanged(regionId: number | string | null): void {
-    this.addressForm.patchValue(
-      { regionId, provinceId: null, cityId: null, barangayId: null },
-      { emitEvent: true },
-    );
-  }
+  // onRegionChanged(regionId: number | string | null): void {
+  //   this.addressForm.patchValue(
+  //     { regionId, provinceId: null, cityId: null, barangayId: null },
+  //     { emitEvent: true },
+  //   );
+  // }
 
-  onProvinceChanged(provinceId: number | string | null): void {
-    this.addressForm.patchValue(
-      { provinceId, cityId: null, barangayId: null },
-      { emitEvent: true },
-    );
-  }
+  // onProvinceChanged(provinceId: number | string | null): void {
+  //   this.addressForm.patchValue(
+  //     { provinceId, cityId: null, barangayId: null },
+  //     { emitEvent: true },
+  //   );
+  // }
 
-  onCityChanged(cityId: number | string | null): void {
-    this.addressForm.patchValue(
-      {
-        cityId,
-        barangayId: null,
-        addressLine1: '',
-        addressLine2: '',
-        postalCode: '',
-      },
-      { emitEvent: true },
-    );
-  }
+  // onCityChanged(cityId: number | string | null): void {
+  //   this.addressForm.patchValue(
+  //     {
+  //       cityId,
+  //       barangayId: null,
+  //       addressLine1: '',
+  //       addressLine2: '',
+  //       postalCode: '',
+  //     },
+  //     { emitEvent: true },
+  //   );
+  // }
 
-  onBarangayChanged(barangayId: number | string | null): void {
-    this.addressForm.patchValue({ barangayId }, { emitEvent: true });
-  }
+  // onBarangayChanged(barangayId: number | string | null): void {
+  //   this.addressForm.patchValue({ barangayId }, { emitEvent: true });
+  // }
 
   private buildAddressForm(): void {
     this.addressForm = this.fb.group({

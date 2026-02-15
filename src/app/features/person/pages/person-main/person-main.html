@@ -143,11 +143,6 @@
             [addressLine1]="addressForm.get('addressLine1')?.value"
             [addressLine2]="addressForm.get('addressLine2')?.value"
             [postalCode]="addressForm.get('postalCode')?.value"
-            (countryChange)="onCountryChanged($event)"
-            (regionChange)="onRegionChanged($event)"
-            (provinceChange)="onProvinceChanged($event)"
-            (cityChange)="onCityChanged($event)"
-            (barangayChange)="onBarangayChanged($event)"
             (regionTextChange)="addressForm.patchValue({ regionText: $event }, { emitEvent: true })"
             (provinceTextChange)="
               addressForm.patchValue({ provinceText: $event }, { emitEvent: true })
