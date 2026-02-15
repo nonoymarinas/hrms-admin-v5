@@ -1,0 +1,102 @@
+@use '../../../../../styles.scss' as gv;
+:host {
+  color: gv.$color-gray-002;
+}
+.dashboard-main-cont {
+  height: gv.$height-main-content;
+  overflow: auto;
+}
+.dashboard-title-main-cont {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  background: #d4d4d4;
+  padding: 0.5rem 1rem;
+  height: gv.$height-dashboard-title-header;
+}
+.dashboard-title-text {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+.dashboard-icon-inactive {
+  fill: #a1a1a1;
+  height: 2rem;
+}
+.dashboard-icon-active {
+  fill: #2d2d2d;
+  height: 2rem;
+}
+.dashboard-icon-active:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+.dashboard-icon-active:active {
+  background: rgba(255, 255, 255, 0.9);
+}
+.dashboard-all-chart {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-auto-rows: 300px;
+  height: 100vh;
+  padding: 1rem;
+}
+.dashboard-single-chart {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+  grid-auto-rows: calc(#{gv.$height-main-content} - #{gv.$height-dashboard-title-header});
+  height: 100%;
+  padding: 0;
+  &.chart-cont {
+    border: none;
+  }
+  &.dashboard-main-cont {
+    overflow: hidden;
+  }
+}
+
+.dashboard-chart-cont {
+  height: 100%;
+}
+.chart-cont {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border: 1px dashed gray;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease,
+    transform 180ms ease;
+  height: 100%;
+}
+.chart-cont:hover {
+  background-color: #dedede;
+  // border-color: #d4d4d4;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.chart-title {
+  padding: 1rem;
+}
+.chart-hidden {
+  display: none !important;
+}
+
+/* selected card styling when single view */
+.chart-selected {
+  border: none;
+  background: #e6e6e6;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+  transform: scale(1.01);
+  padding: 1rem;
+  height: 100%;
+}
+
+@media (max-width: 599px) {
+  .dashboard-all-chart {
+    grid-template-columns: 1fr; // single column
+    grid-auto-rows: 300px; // fixed card height
+    gap: 0;
+    row-gap: 12px;
+  }
+}

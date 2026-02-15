@@ -1,0 +1,19 @@
+<div class="input-container" [class.is-disabled]="disabled" autocomplete="off">
+  <label class="input-label" *ngIf="label">{{ label }}</label>
+
+  <input
+    class="input-box"
+    type="search"
+    [placeholder]="placeholder"
+    [value]="inputValue"
+    [disabled]="disabled"
+    autocomplete="off"
+    aria-autocomplete="none"
+    role="searchbox"
+    inputmode="search"
+    spellcheck="false"
+    autocorrect="off"
+    autocapitalize="off"
+    (input)="onInput($event)"
+  />
+</div>

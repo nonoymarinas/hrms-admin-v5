@@ -1,0 +1,29 @@
+.input-container {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  margin: 8px 0;
+}
+.input-label {
+  display: flex;
+  align-items: center;
+  //   padding: 6px 8px;
+  font-size: 14px;
+}
+textarea.auto-textarea {
+  width: 100%;
+  padding: 0.5rem;          /* keep only one padding */
+  border: 1px solid #ccc;
+  font-size: 14px;
+  line-height: 1.4;
+  min-height: 30px;
+
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  /* important for growth */
+  height: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+

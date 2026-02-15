@@ -1,0 +1,69 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Define a theme (Material 3 style)
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$rose-palette,
+    ),
+    typography: (
+      brand-family: 'Inter, Arial, sans-serif',
+      plain-family: 'Inter, Arial, sans-serif',
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
+
+// ✅ Apply the theme globally (NOT inside :root)
+@include mat.all-component-themes($theme);
+
+// ✅ Token overrides belong in :root
+:root {
+  @include mat.button-overrides(
+    (
+      // container-height: 44px,
+      // container-shape: 10px,
+      // label-text-size: 20px,
+      // label-text-weight: 600,
+      // horizontal-padding: 20px,
+    )
+  );
+
+  @include mat.fab-overrides(());
+
+  @include mat.icon-button-overrides(());
+}
+
+:root {
+  /* Material token overrides */
+  @include mat.button-overrides(());
+  @include mat.fab-overrides(());
+  @include mat.icon-button-overrides(());
+
+  /* Your app tokens */
+  --bg: #0b0b0c;
+  --surface: #121214;
+  --surface-2: #1a1a1d;
+  --border: #2a2a2f;
+
+  --text: #f2f2f3;
+  --text-muted: #b6b6bb;
+
+  --gold-1: #fff1bf;
+  --gold-2: #d4af37;
+  --gold-3: #b38728;
+
+  --color-primary: var(--gold-2);
+  --color-accent: var(--gold-3);
+
+  --chart-1: var(--gold-2);
+  --chart-2: #9ca3af;
+  --chart-3: #6b7280;
+  --chart-4: #374151;
+}

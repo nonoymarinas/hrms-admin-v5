@@ -1,0 +1,25 @@
+.input-container {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  margin: 8px 0;
+}
+.input-label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+.input-box {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: 100%;
+  border-radius: 5px;
+  outline-offset: 4px;
+}
+.input-container.is-disabled {
+  opacity: 0.6;
+}
+
+.input-box:disabled {
+  cursor: not-allowed;
+}

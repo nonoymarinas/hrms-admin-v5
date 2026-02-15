@@ -1,0 +1,42 @@
+@if (isEditMode) {
+  <div class="basic-content-cont">
+    <ui-manual-input-dark label="First Name" placeholder="first name"></ui-manual-input-dark>
+    <ui-manual-input-dark label="Middle Name" placeholder="middle name"></ui-manual-input-dark>
+    <ui-manual-input-dark label="Last Name" placeholder="last name"></ui-manual-input-dark>
+    <ui-manual-input-dark label="Birth Date" placeholder="birth date"></ui-manual-input-dark>
+    <ui-select-input-dark
+      label="Gender"
+      placeholder="gender"
+      options="['Male', 'Female']"
+    ></ui-select-input-dark>
+    <ui-select-input-dark
+      label="Civil Status"
+      placeholder="civil status"
+      options="['Single', 'Married', 'Divorced']"
+    ></ui-select-input-dark>
+  </div>
+} @else {
+  <div class="basic-content-cont">
+    <div class="label-container">
+      <label class="label-name">Id No.</label>
+      <label class="label-value">:&nbsp;<span>EMP0000001</span></label>
+    </div>
+    <div class="label-container">
+      <label class="label-name">Name</label>
+      <label class="label-value">:&nbsp;<span>FELICIANO MARINAS JR</span></label>
+    </div>
+    <div class="label-container">
+      <label class="label-name">Civil Status</label>
+      <label class="label-value">:&nbsp;<span>Married</span></label>
+    </div>
+    <div class="label-container">
+      <label class="label-name">Gender</label>
+      <label class="label-value">:&nbsp;<span>Male</span></label>
+    </div>
+
+    <div class="label-container">
+      <label class="label-name">Birth Date</label>
+      <label class="label-value">:&nbsp;<span>January 7,1979</span></label>
+    </div>
+  </div>
+}

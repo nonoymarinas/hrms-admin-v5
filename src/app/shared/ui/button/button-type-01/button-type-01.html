@@ -1,0 +1,8 @@
+<button
+  class="button"
+  [class.button--active]="isActive"
+  [class.button--disabled]="!isActive"
+  (click)="onClick()"
+>
+  {{ label }}
+</button>

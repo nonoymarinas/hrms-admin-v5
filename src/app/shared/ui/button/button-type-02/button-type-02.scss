@@ -1,0 +1,28 @@
+@use '../../../../../styles.scss' as gv;
+
+/* Base button styles (shared) */
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 7px;
+  min-width: 60px;
+  background-color: gv.$color-gray-008;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+/* Active state */
+.button--active {
+  color: gv.$color-gray-003;
+  border-color: gv.$color-gray-008;
+}
+
+/* Disabled state */
+.button--disabled {
+  color: gv.$color-gray-003;
+  border-color: gv.$color-gray-008;
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}

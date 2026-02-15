@@ -1,0 +1,34 @@
+@use '../../../../styles.scss' as gv;
+.layout-main-cont {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  width: 100vw;
+  color: #fff;
+  overflow: hidden;
+}
+.layout-header-cont {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  height: gv.$height-main-header;
+  width: 100%;
+  background: #01030c;
+  padding: 0.5rem;
+  z-index: 1000;
+}
+.layout-content-cont {
+  height: gv.$height-main-content;
+  width: 100%;
+  overflow-y: auto;
+}
+.layout-footer-cont {
+  height: gv.$height-main-footer;
+  width: 100%;
+  background: #01030c;
+  z-index: 1000;
+}
+.header-title-text {
+  display: flex;
+  align-items: center;
+}

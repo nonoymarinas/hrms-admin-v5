@@ -1,0 +1,250 @@
+<div class="newemployee-main-cont jsNewEmployeeMainCont jsMainContainer">
+  <div class="newemployee-sub-cont jsEmployeeDetailsMainCont">
+    <div class="employee-main-menu-cont">
+      <div class="employee-sub-menu-cont">
+        <button class="employee-main-menu-back-btn jsBackBtn">
+          <svg
+            class="svg-menu-close-arrow jsMainMenuCloseArrow"
+            xmlns="http://www.w3.org/2000/svg"
+            height="16"
+            width="10"
+            viewBox="0 0 320 512"
+            height="18px"
+          >
+            <path
+              class="main-menu-close-arrow-path"
+              opacity="1"
+              d="M30.1 256l17-17L207 79l17-17L257.9 96l-17 17L97.9 256 241 399l17 17L224 449.9l-17-17L47 273l-17-17z"
+            />
+          </svg>
+        </button>
+
+        <button class="main-menu-btn jsEmployeeBiodataBtn">Biodata</button>
+        <button class="main-menu-btn jsEmployeePayrollBtn">Payroll</button>
+        <button class="main-menu-btn jsNoticesBtn">Notices</button>
+      </div>
+
+      <button class="main-header-ellipsis-btn">
+        <div class="ellipsis-circle"></div>
+        <div class="ellipsis-circle"></div>
+        <div class="ellipsis-circle"></div>
+      </button>
+    </div>
+
+    <div class="employee-main-content-cont jsEmployeeMainContentCont">
+      <!-- person infos -->
+      <div class="person-basic-main-cont">
+        <div class="newemployee-sub-01-header-cont jsPersonInfoSubHeaderCont">
+          <h4 class="sub-header-title">PERSONAL INFO</h4>
+
+          <ui-button-type-01
+            (clicked)="onClickedEditPersInfoBtn()"
+            [isActive]="isPersonInfoBtnEditActive"
+            [label]="editCancelBtnLabel"
+          ></ui-button-type-01>
+
+          <ui-button-type-01
+            (clicked)="onClickedSavePersInfoBtn()"
+            [isActive]="isPersonInfoBtnSaveActive"
+            [label]="saveUpdateBtnLabel"
+          ></ui-button-type-01>
+        </div>
+
+        <div class="newemployee-personal-sub-cont jsPersonalInfoSubCont">
+          <div class="personal-img-cont jsImageProfileMainCont">
+            <div class="new-emp-photo-cont jsNewEmpPhotoCont">
+              <svg class="photo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  d="M352 144a96 96 0 1 0 -192 0 96 96 0 1 0 192 0zm-240 0a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zM49.3 464H462.7c-8.3-54.4-55.3-96-112-96H161.3c-56.7 0-103.6 41.6-112 96zM0 481.3C0 392.2 72.2 320 161.3 320H350.7C439.8 320 512 392.2 512 481.3c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3z"
+                />
+              </svg>
+            </div>
+            <input
+              class="jsNewEmpImageInputFile"
+              id="imagefileinput"
+              name="imagefileinput"
+              type="file"
+              hidden
+            />
+          </div>
+
+          <div>
+            <app-person-basic [isEditMode]="isPersonInfoEditMode"></app-person-basic>
+          </div>
+        </div>
+      </div>
+
+      <!-- person contacts -->
+      <div
+        name="contacts"
+        class="margin-bottom-1rem newemployee-contact-cont jsContactsMainCont jsEmployeeGroupCont"
+      >
+        <div class="newemployee-sub-02-header-cont">
+          <h4 class="sub-header-title">CONTACTS</h4>
+
+          <ui-button-type-02
+            (clicked)="onClickedEditContactBtn()"
+            [isActive]="isContactEditBtnActive"
+            [label]="contactEditBtnLabel"
+          ></ui-button-type-02>
+
+          <ui-button-type-02
+            (clicked)="onClickedSaveContactBtn()"
+            [isActive]="isContactSaveBtnActive"
+            [label]="contactSaveBtnLabel"
+          ></ui-button-type-02>
+        </div>
+
+        <div class="jsContactsFieldMainCont">
+          <app-person-contact [isEditMode]="isContactEditMode"></app-person-contact>
+        </div>
+      </div>
+
+      <!-- person address -->
+      <div
+        name="addresses"
+        class="margin-bottom-1rem newemployee-address-cont jsAddressesMainCont jsEmployeeGroupCont"
+      >
+        <div class="newemployee-sub-02-header-cont jsAddressesHeaderCont">
+          <h4 class="sub-header-title">ADDRESSESS</h4>
+
+          <ui-button-type-02
+            (clicked)="onClickedEditAddressBtn()"
+            [isActive]="isAddressEditBtnActive"
+            [label]="addressEditBtnLabel"
+          ></ui-button-type-02>
+
+          <ui-button-type-02
+            (clicked)="onClickedSaveAddressBtn()"
+            [isActive]="isAddressSaveBtnActive"
+            [label]="addressSaveBtnLabel"
+          ></ui-button-type-02>
+        </div>
+
+        <div class="jsAddressFieldSubCont">
+          <app-person-addresses
+            [isLocked]="isLocked()"
+            [isEditMode]="isAddressEditMode"
+            [isPhilippines]="isPhilippines()"
+            [countries]="countries"
+            [regions]="regions"
+            [provinces]="provinces"
+            [cities]="cities"
+            [barangays]="barangays"
+            [isBarangayLoading]="!isBarangaysLoaded"
+            [selectedCountryId]="addressForm.get('countryId')?.value"
+            [selectedRegionId]="addressForm.get('regionId')?.value"
+            [selectedProvinceId]="addressForm.get('provinceId')?.value"
+            [selectedCityId]="addressForm.get('cityId')?.value"
+            [selectedBarangayId]="addressForm.get('barangayId')?.value"
+            [regionText]="addressForm.get('regionText')?.value"
+            [provinceText]="addressForm.get('provinceText')?.value"
+            [cityText]="addressForm.get('cityText')?.value"
+            [addressLine1]="addressForm.get('addressLine1')?.value"
+            [addressLine2]="addressForm.get('addressLine2')?.value"
+            [postalCode]="addressForm.get('postalCode')?.value"
+            (countryChange)="onCountryChanged($event)"
+            (regionChange)="onRegionChanged($event)"
+            (provinceChange)="onProvinceChanged($event)"
+            (cityChange)="onCityChanged($event)"
+            (barangayChange)="onBarangayChanged($event)"
+            (regionTextChange)="addressForm.patchValue({ regionText: $event }, { emitEvent: true })"
+            (provinceTextChange)="
+              addressForm.patchValue({ provinceText: $event }, { emitEvent: true })
+            "
+            (cityTextChange)="addressForm.patchValue({ cityText: $event }, { emitEvent: true })"
+            (addressLine1Change)="
+              addressForm.patchValue({ addressLine1: $event }, { emitEvent: true })
+            "
+            (addressLine2Change)="
+              addressForm.patchValue({ addressLine2: $event }, { emitEvent: true })
+            "
+            (postalCodeChange)="addressForm.patchValue({ postalCode: $event }, { emitEvent: true })"
+          ></app-person-addresses>
+        </div>
+      </div>
+
+      <!-- person employments -->
+      <div
+        name="designations"
+        class="margin-bottom-1rem newemployee-employment-cont jsEmployeeGroupCont jsDesignationsMainCont"
+      >
+        <div class="newemployee-sub-02-header-cont jsDesignationsHeaderCont">
+          <h4 class="sub-header-title">EMPLOYMENTS</h4>
+
+          <ui-button-type-02
+            (clicked)="onClickedEditPersInfoBtn()"
+            [isActive]="isPersonInfoBtnEditActive"
+            [label]="editCancelBtnLabel"
+          ></ui-button-type-02>
+
+          <ui-button-type-02
+            (clicked)="onClickedSavePersInfoBtn()"
+            [isActive]="isPersonInfoBtnSaveActive"
+            [label]="saveUpdateBtnLabel"
+          ></ui-button-type-02>
+        </div>
+
+        <div class="jsDesignationsFieldMainCont">
+          <app-person-employments></app-person-employments>
+        </div>
+      </div>
+
+      <!-- person benifits -->
+      <div
+        name="benifits"
+        class="margin-bottom-1rem newemployee-benifit-cont jsEmployeeGroupCont jsBenifitsMainCont"
+      >
+        <div
+          class="newemployee-sub-02-header-cont grid-template-columns-1fr-auto jsBenifitsHeaderCont"
+        >
+          <h4 class="sub-header-title">BENIFITS</h4>
+
+          <ui-button-type-02
+            (clicked)="onClickedEditPersInfoBtn()"
+            [isActive]="isPersonInfoBtnEditActive"
+            [label]="editCancelBtnLabel"
+          ></ui-button-type-02>
+
+          <ui-button-type-02
+            (clicked)="onClickedSavePersInfoBtn()"
+            [isActive]="isPersonInfoBtnSaveActive"
+            [label]="saveUpdateBtnLabel"
+          ></ui-button-type-02>
+        </div>
+
+        <div>
+          <app-person-benifits></app-person-benifits>
+        </div>
+      </div>
+
+      <!-- person compensation -->
+      <div
+        name="compensation"
+        class="margin-bottom-1rem newemployee-compensation-cont jsEmployeeGroupCont jsCompensationsMainCont"
+      >
+        <div
+          class="newemployee-sub-02-header-cont grid-template-columns-1fr-auto jsCompensationsHeaderCont"
+        >
+          <h4 class="sub-header-title">COMPENSATIONS</h4>
+
+          <ui-button-type-02
+            (clicked)="onClickedEditPersInfoBtn()"
+            [isActive]="isPersonInfoBtnEditActive"
+            [label]="editCancelBtnLabel"
+          ></ui-button-type-02>
+
+          <ui-button-type-02
+            (clicked)="onClickedSavePersInfoBtn()"
+            [isActive]="isPersonInfoBtnSaveActive"
+            [label]="saveUpdateBtnLabel"
+          ></ui-button-type-02>
+        </div>
+
+        <div>
+          <app-person-compensations></app-person-compensations>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

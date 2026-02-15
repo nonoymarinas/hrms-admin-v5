@@ -1,0 +1,110 @@
+@if (isEditMode) {
+  <div class="address-content-cont">
+    <ui-select-input
+      [items]="countries"
+      [value]="selectedCountryId"
+      (valueChange)="onCountryValueChange($event)"
+      style="--z-index: 7"
+      label="Country"
+      placeholder="Country"
+      [disabled]="isLocked"
+    ></ui-select-input>
+
+    <ng-container *ngIf="isPhilippines; else nonPhTemplate">
+      <ui-select-input
+        [items]="regions"
+        [value]="selectedRegionId"
+        (valueChange)="onRegionValueChange($event)"
+        style="--z-index: 6"
+        label="Region"
+        placeholder="Region"
+        [disabled]="isLocked || isRegionDisabled"
+      ></ui-select-input>
+
+      <ui-select-input
+        [items]="provinces"
+        [value]="selectedProvinceId"
+        (valueChange)="onProvinceValueChange($event)"
+        style="--z-index: 5"
+        label="Province"
+        placeholder="Province"
+        [disabled]="isLocked || isProvinceDisabled"
+      ></ui-select-input>
+
+      <ui-select-input
+        [items]="cities"
+        [value]="selectedCityId"
+        (valueChange)="onCityValueChange($event)"
+        style="--z-index: 4"
+        label="City"
+        placeholder="City"
+        [disabled]="isLocked || isCityDisabled"
+      ></ui-select-input>
+
+      <ui-select-input
+        [items]="barangays"
+        [value]="selectedBarangayId"
+        (valueChange)="onBarangayValueChange($event)"
+        style="--z-index: 3"
+        label="Barangay"
+        placeholder="Barangay"
+        [loading]="isBarangayLoading"
+        [disabled]="isLocked || isBarangayDisabled"
+      ></ui-select-input>
+    </ng-container>
+
+    <ng-template #nonPhTemplate>
+      <ui-manual-input
+        label="Region"
+        placeholder="Region"
+        [value]="regionText"
+        (valueChange)="onRegionTextChanged($event)"
+        [disabled]="isLocked || isRegionTextDisabled"
+      ></ui-manual-input>
+
+      <ui-manual-input
+        label="Province"
+        placeholder="State / province"
+        [value]="provinceText"
+        (valueChange)="onProvinceTextChanged($event)"
+        [disabled]="isLocked || isProvinceTextDisabled"
+      ></ui-manual-input>
+
+      <ui-manual-input
+        label="City"
+        placeholder="City / Town"
+        [value]="cityText"
+        (valueChange)="onCityTextChanged($event)"
+        [disabled]="isLocked || isCityTextDisabled"
+      ></ui-manual-input>
+    </ng-template>
+
+    <ui-manual-input
+      label="Line 1"
+      placeholder="Subdivision, Village, etc."
+      [value]="addressLine1"
+      (valueChange)="onAddressLine1Changed($event)"
+      [disabled]="isLocked"
+    ></ui-manual-input>
+
+    <ui-manual-input
+      label="Line 2"
+      placeholder="Building no., Street, etc."
+      [value]="addressLine2"
+      (valueChange)="onAddressLine2Changed($event)"
+      [disabled]="isLocked"
+    ></ui-manual-input>
+
+    <ui-manual-input
+      label="Postal"
+      placeholder="Postal / ZIP Code"
+      [value]="postalCode"
+      (valueChange)="onPostalCodeChanged($event)"
+      [disabled]="isLocked"
+    ></ui-manual-input>
+  </div>
+} @else {
+  <div class="label-container">
+    <ui-view-item label="Address" value="..."></ui-view-item>
+  </div>
+}

@@ -1,0 +1,25 @@
+@use '../../../../../styles.scss' as gv;
+.basic-content-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  -webkit-text-fill-color: gv.$color-gray-007;
+  font-size: 1.2rem;
+  text-align: justify;
+  padding:1rem
+}
+.label-container{
+  display: grid;
+  grid-template-columns: 100px 1fr;
+}
+.label-value{
+   font-weight: 600;
+  padding: .3rem 0;
+  color: gv.$color-gray-007;
+}
+.label-name {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color:gv.$color-gray-008;
+}

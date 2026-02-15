@@ -1,0 +1,96 @@
+<div class="dashboard-main-cont">
+  <div class="dashboard-title-main-cont">
+    <h2 class="dashboard-title-text">DASHBOARDS</h2>
+
+    <svg
+      (click)="showAll()"
+      [class.dashboard-icon-active]="isSingle"
+      class="dashboard-icon-inactive"
+      viewBox="0 0 640 640"
+    >
+      <path
+        d="M160 256L96 256L96 192L160 192L160 256zM192 192L192 160L64 160L64 288L192 288L192 192zM352 192L352 256L288 256L288 192L352 192zM384 160L256 160L256 288L384 288L384 160zM544 192L544 256L480 256L480 192L544 192zM576 160L448 160L448 288L576 288L576 160zM544 384L544 448L480 448L480 384L544 384zM576 352L448 352L448 480L576 480L576 352zM352 448L288 448L288 384L352 384L352 448zM384 384L384 352L256 352L256 480L384 480L384 384zM160 384L160 448L96 448L96 384L160 384zM192 352L64 352L64 480L192 480L192 352z"
+      />
+    </svg>
+  </div>
+
+  <!-- ✅ GRID VIEW -->
+  <div *ngIf="!isSingle" class="dashboard-all-chart">
+    <div (click)="open(0)" class="chart-cont">
+      <h2 class="chart-title">Attendance Status</h2>
+      <ui-chart-attendance class="dashboard-chart-cont"></ui-chart-attendance>
+    </div>
+
+    <div (click)="open(1)" class="chart-cont">
+      <h2 class="chart-title">Employee Type</h2>
+      <ui-chart-employeetype class="dashboard-chart-cont"></ui-chart-employeetype>
+    </div>
+
+    <div (click)="open(2)" class="chart-cont">
+      <h2 class="chart-title">Jobsite Assignment</h2>
+      <ui-chart-worklocation class="dashboard-chart-cont"></ui-chart-worklocation>
+    </div>
+
+    <div (click)="open(3)" class="chart-cont">
+      <h2 class="chart-title">Departments</h2>
+      <ui-chart-department class="dashboard-chart-cont"></ui-chart-department>
+    </div>
+
+    <div (click)="open(4)" class="chart-cont">
+      <h2 class="chart-title">Position Level</h2>
+      <ui-chart-job-level class="dashboard-chart-cont"></ui-chart-job-level>
+    </div>
+
+    <div (click)="open(5)" class="chart-cont">
+      <h2 class="chart-title">Tenure</h2>
+      <ui-chart-tenure class="dashboard-chart-cont"></ui-chart-tenure>
+    </div>
+
+    <div (click)="open(6)" class="chart-cont">
+      <h2 class="chart-title">Contract Expiry</h2>
+      <ui-chart-contract-expiry class="dashboard-chart-cont"></ui-chart-contract-expiry>
+    </div>
+  </div>
+
+  <!-- ✅ SINGLE VIEW (only ONE chart exists in DOM) -->
+  <div *ngIf="isSingle" class="dashboard-single-chart">
+    <div class="chart-cont chart-selected">
+      <ng-container [ngSwitch]="selectedDashboardIndex">
+        <ng-container *ngSwitchCase="0">
+          <h2 class="chart-title">Attendance Status</h2>
+          <ui-chart-attendance class="dashboard-chart-cont"></ui-chart-attendance>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="1">
+          <h2 class="chart-title">Employee Type</h2>
+          <ui-chart-employeetype class="dashboard-chart-cont"></ui-chart-employeetype>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="2">
+          <h2 class="chart-title">Jobsite Assignment</h2>
+          <ui-chart-worklocation class="dashboard-chart-cont"></ui-chart-worklocation>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="3">
+          <h2 class="chart-title">Departments</h2>
+          <ui-chart-department class="dashboard-chart-cont"></ui-chart-department>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="4">
+          <h2 class="chart-title">Position Level</h2>
+          <ui-chart-job-level class="dashboard-chart-cont"></ui-chart-job-level>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="5">
+          <h2 class="chart-title">Tenure</h2>
+          <ui-chart-tenure class="dashboard-chart-cont"></ui-chart-tenure>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="6">
+          <h2 class="chart-title">Contract Expiry</h2>
+          <ui-chart-contract-expiry class="dashboard-chart-cont"></ui-chart-contract-expiry>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

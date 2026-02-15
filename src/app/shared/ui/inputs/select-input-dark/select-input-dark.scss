@@ -1,0 +1,52 @@
+@use '../../../../../styles.scss' as gv;
+:host {
+  --z-index: 10; // default
+  position: relative;
+  z-index: var(--z-index);
+}
+
+.input-container {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  margin: 5px 0;
+}
+.input-label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: gv.$color-gray-008;
+}
+.input-box {
+  padding: 6px 8px;
+  border: 1px solid gv.$color-gray-003;
+  font-size: 14px;
+  width: 100%;
+  background-color: gv.$color-gray-009;
+  border-radius: 5px;
+  outline-offset: 4px;
+}
+.input-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+.input-search-ul {
+  position: absolute;
+  width: 100%;
+  background: gv.$color-gray-007;
+  z-index: 1;
+  border: 1px solid   gv.$color-gray-003;
+}
+.input-search-ul {
+  max-height: 220px;
+  overflow: auto;
+}
+
+.input-search-li {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+}
+
+.input-search-li.active {
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.08);
+}

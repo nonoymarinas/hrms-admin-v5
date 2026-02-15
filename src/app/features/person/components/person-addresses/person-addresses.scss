@@ -1,0 +1,18 @@
+@use '../../../../../styles.scss' as gv;
+.address-content-cont {
+  padding: 1rem;
+}
+.label-container{
+padding:.5rem 1rem;
+}
+.label-value{
+  font-weight: 600;
+  padding: .3rem 0;
+  color: gv.$color-gray-002;
+}
+.label-name {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color:gv.$color-gray-002;
+}

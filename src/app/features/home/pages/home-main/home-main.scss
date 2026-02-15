@@ -1,0 +1,71 @@
+@use '../../../../../styles.scss' as gv;
+:host {
+  color: gv.$color-gray-002;
+}
+.home-main-cont {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  grid-auto-rows: auto;
+  padding: 2rem;
+}
+.icon-screen-main-cont {
+  display: grid;
+  grid-template-columns: 1fr auto minmax(6rem, 10rem);
+  max-width: 460px;
+  border: 1px dashed gray;
+  padding: 1rem;
+  height: 180px;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease,
+    transform 180ms ease;
+  background: #383838;
+  border-radius: 2rem;
+}
+.icon-screen-main-cont:hover {
+  background-color: #696969;
+  border-color: #d4d4d4;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.icon-main-title-text {
+  color: #fdae02;
+}
+.icon-screen-icon-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-svg {
+  height: 120px;
+  width: auto;
+  stroke-width: 1px;
+  display: block;
+  fill: #bebebe;
+}
+.icon-screen-label-cont {
+  display: flex;
+  flex-direction: column;
+}
+.icon-vert-line {
+  width: 2px;
+  background: #c5c5c5;
+  height: 100%;
+  align-self: center;
+}
+.icon-label {
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  margin-top: 0.3rem;
+  color: #d3d3d3;
+}
+
+@media (max-width: 599px) {
+  .home-main-cont {
+    grid-template-columns: 1fr; // single column
+    grid-auto-rows: max-content; // fixed card height
+    gap: 0;
+    row-gap: 12px;
+    padding: 1rem;
+  }
+}

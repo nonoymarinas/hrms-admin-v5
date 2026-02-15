@@ -1,0 +1,16 @@
+@use '../../../../../styles.scss' as gv;
+.view-item-cont {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.view-item-label {
+  font-weight: 400;
+  color: gv.$color-gray-004;
+  margin-right: 8px;
+}
+.view-item-value {
+  font-weight: 600;
+  color: gv.$color-gray-004;
+}

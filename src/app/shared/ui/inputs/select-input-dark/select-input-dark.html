@@ -1,0 +1,33 @@
+<div class="input-container" autocomplete="off">
+  <label class="input-label">{{ label }}</label>
+
+  <div class="input-select-wrapper">
+    <input
+      type="search"
+      autocomplete="off"
+      aria-autocomplete="none"
+      role="searchbox"
+      inputmode="search"
+      spellcheck="false"
+      autocorrect="off"
+      autocapitalize="off"
+      class="input-box"
+      [placeholder]="placeholder"
+      [value]="inputValue"
+      (input)="onSearch($event)"
+      (keydown)="onKeydown($event)"
+    />
+
+    <ul class="input-search-ul" *ngIf="results.length > 0">
+      <li
+        class="input-search-li"
+        *ngFor="let item of results; let i = index; trackBy: trackById"
+        [class.active]="i === activeIndex"
+        (mouseenter)="onHoverIndex(i)"
+        (click)="onItemSelected(item)"
+      >
+        {{ item.name }}
+      </li>
+    </ul>
+  </div>
+</div>

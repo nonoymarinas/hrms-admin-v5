@@ -1,0 +1,98 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.button-overrides(
+    (
+      /* =========================
+     * FILLED (mat-flat-button)
+     * ========================= */
+        filled-container-height: 44px,
+      filled-container-shape: 10px,
+      filled-horizontal-padding: 22px,
+
+      filled-container-color: #2a2a2f,
+      /* dark gray */ filled-label-text-color: #ffffff,
+      filled-label-text-size: 15px,
+      filled-label-text-weight: 600,
+      filled-state-layer-color: #ffffff,
+
+      /* hover ripple base */
+        /* =========================
+     * ELEVATED / PROTECTED
+     * (mat-raised-button)
+     * ========================= */
+        protected-container-height: 44px,
+      protected-container-shape: 10px,
+      protected-horizontal-padding: 22px,
+
+      protected-container-color: #2a2a2f,
+      protected-label-text-color: #ffffff,
+      protected-label-text-size: 15px,
+      protected-label-text-weight: 600,
+      protected-state-layer-color: #ffffff,
+
+      /* =========================
+     * OUTLINED (mat-stroked-button)
+     * ========================= */
+        outlined-container-height: 44px,
+      outlined-container-shape: 10px,
+      outlined-horizontal-padding: 22px,
+      outlined-outline-width: 1px,
+
+      outlined-outline-color: #3a3a41,
+      outlined-label-text-color: #ffffff,
+      outlined-label-text-size: 15px,
+      outlined-label-text-weight: 600,
+      outlined-state-layer-color: #ffffff,
+
+      /* =========================
+     * TEXT (mat-button)
+     * ========================= */
+        text-container-height: 40px,
+      text-container-shape: 8px,
+      text-horizontal-padding: 16px,
+
+      text-label-text-color: #ffffff,
+      text-label-text-size: 14px,
+      text-label-text-weight: 600,
+      text-state-layer-color: #ffffff,
+
+      /* =========================
+     * TONAL
+     * ========================= */
+        tonal-container-height: 44px,
+      tonal-container-shape: 10px,
+      tonal-horizontal-padding: 22px,
+
+      tonal-container-color: #1f1f23,
+      tonal-label-text-color: #ffffff,
+      tonal-label-text-size: 15px,
+      tonal-label-text-weight: 600,
+      tonal-state-layer-color: #ffffff
+    )
+  );
+
+  /* -----------------------------
+   * FORM FIELD (Material 3 tokens)
+   * Note: token names can vary by Material version.
+   * If build errors, use the error list to rename keys.
+   * ----------------------------- */
+  @include mat.form-field-overrides(
+    (
+      /* Sizing/shape */ container-height: 52px,
+      filled-container-shape: 12px,
+
+      /* Colors for dark theme */ filled-container-color: var(--surface),
+      filled-label-text-color: var(--text-muted),
+      filled-input-text-color: var(--text),
+      filled-active-indicator-color: var(--gold-2),
+      filled-caret-color: var(--gold-2),
+      /* Optional: outline-style (if you use outline appearance) */ outlined-outline-color:
+        var(--border),
+      outlined-label-text-color: var(--text-muted),
+      outlined-input-text-color: var(--text),
+      outlined-caret-color: var(--gold-2),
+      outlined-focus-outline-color: var(--gold-2)
+    )
+  );
+}
