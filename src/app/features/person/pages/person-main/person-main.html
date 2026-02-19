@@ -106,7 +106,7 @@
         class="margin-bottom-1rem newemployee-address-cont jsAddressesMainCont jsEmployeeGroupCont"
       >
         <div class="newemployee-sub-02-header-cont jsAddressesHeaderCont">
-          <h4 class="sub-header-title">ADDRESSESS</h4>
+          <h4 class="sub-header-title">ADDRESSES</h4>
 
           <ui-button-type-02
             (clicked)="onClickedEditAddressBtn()"
@@ -125,36 +125,7 @@
           <app-person-addresses
             [isLocked]="isLocked()"
             [isEditMode]="isAddressEditMode"
-            [isPhilippines]="isPhilippines()"
-            [countries]="countries"
-            [regions]="regions"
-            [provinces]="provinces"
-            [cities]="cities"
-            [barangays]="barangays"
-            [isBarangayLoading]="!isBarangaysLoaded"
-            [selectedCountryId]="addressForm.get('countryId')?.value"
-            [selectedRegionId]="addressForm.get('regionId')?.value"
-            [selectedProvinceId]="addressForm.get('provinceId')?.value"
-            [selectedCityId]="addressForm.get('cityId')?.value"
-            [selectedBarangayId]="addressForm.get('barangayId')?.value"
-            [regionText]="addressForm.get('regionText')?.value"
-            [provinceText]="addressForm.get('provinceText')?.value"
-            [cityText]="addressForm.get('cityText')?.value"
-            [addressLine1]="addressForm.get('addressLine1')?.value"
-            [addressLine2]="addressForm.get('addressLine2')?.value"
-            [postalCode]="addressForm.get('postalCode')?.value"
-            (regionTextChange)="addressForm.patchValue({ regionText: $event }, { emitEvent: true })"
-            (provinceTextChange)="
-              addressForm.patchValue({ provinceText: $event }, { emitEvent: true })
-            "
-            (cityTextChange)="addressForm.patchValue({ cityText: $event }, { emitEvent: true })"
-            (addressLine1Change)="
-              addressForm.patchValue({ addressLine1: $event }, { emitEvent: true })
-            "
-            (addressLine2Change)="
-              addressForm.patchValue({ addressLine2: $event }, { emitEvent: true })
-            "
-            (postalCodeChange)="addressForm.patchValue({ postalCode: $event }, { emitEvent: true })"
+            [form]="addressForm"
           ></app-person-addresses>
         </div>
       </div>
@@ -190,9 +161,7 @@
         name="benifits"
         class="margin-bottom-1rem newemployee-benifit-cont jsEmployeeGroupCont jsBenifitsMainCont"
       >
-        <div
-          class="newemployee-sub-02-header-cont grid-template-columns-1fr-auto jsBenifitsHeaderCont"
-        >
+        <div class="newemployee-sub-02-header-cont grid-template-columns-1fr-auto jsBenifitsHeaderCont">
           <h4 class="sub-header-title">BENIFITS</h4>
 
           <ui-button-type-02
@@ -218,9 +187,7 @@
         name="compensation"
         class="margin-bottom-1rem newemployee-compensation-cont jsEmployeeGroupCont jsCompensationsMainCont"
       >
-        <div
-          class="newemployee-sub-02-header-cont grid-template-columns-1fr-auto jsCompensationsHeaderCont"
-        >
+        <div class="newemployee-sub-02-header-cont grid-template-columns-1fr-auto jsCompensationsHeaderCont">
           <h4 class="sub-header-title">COMPENSATIONS</h4>
 
           <ui-button-type-02
@@ -240,6 +207,7 @@
           <app-person-compensations></app-person-compensations>
         </div>
       </div>
+
     </div>
   </div>
 </div>

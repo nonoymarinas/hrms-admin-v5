@@ -5,11 +5,11 @@ import {
   Output,
   OnChanges,
   SimpleChanges,
-  forwardRef
+  forwardRef,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SelectItem } from '../../../models/select-item';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SelectItem } from '../../../models/address-reference';
 
 @Component({
   selector: 'ui-select-input',
@@ -25,14 +25,16 @@ import { SelectItem } from '../../../models/select-item';
     },
   ],
 })
-
 export class SelectInput implements OnChanges, ControlValueAccessor {
+  // ---------------- CVA internals ----------------
+  private onChange: (value: number | string | null) => void = () => {};
+  private onTouched: () => void = () => {};
 
-  private onChange: (value: number | string | null) => void = () => { };
-  private onTouched: () => void = () => { };
+  /** the form value (selected id). Source of truth for CVA */
+  private value: number | string | null = null;
 
+  /** CVA: Angular writes into the component */
   writeValue(value: number | string | null): void {
-    // Angular will call this when the FormControl value changes
     this.value = value ?? null;
     this.isUserTyping = false;
     this.syncDisplayFromValue();
@@ -49,45 +51,46 @@ export class SelectInput implements OnChanges, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    if (this.disabled) this.closeDropdown();
+    if (isDisabled) this.closeDropdown();
   }
 
-
-  // ---------- Inputs ----------
+  // ---------------- Inputs ----------------
   @Input() label = '';
   @Input() placeholder = '';
   @Input() loading = false;
 
-  // List of options
+  /** list of options */
   @Input() items: SelectItem[] = [];
 
-  // Selected id from parent (source of truth)
-  @Input() value: number | string | null = null;
-
-  // Disabled from parent
+  /** allow disabling from template; CVA may override via setDisabledState */
   @Input() disabled = false;
 
-  // ---------- Outputs ----------
-  @Output() valueChange = new EventEmitter<number | string | null>();
+  // ---------------- Optional outputs ----------------
+  /** Useful if parent wants the full object when selection changes */
   @Output() itemChange = new EventEmitter<SelectItem | null>();
 
-  // ---------- UI state ----------
+  // ---------------- UI state ----------------
   inputValue = '';
   results: SelectItem[] = [];
   activeIndex = -1;
 
   /**
-   * ✅ Prevent dropdown auto-opening when value is set programmatically.
-   * Only show dropdown results when user is actively typing.
+   * Prevent dropdown auto-opening when value is set programmatically.
+   * Only show dropdown results when user is typing.
    */
   private isUserTyping = false;
 
   ngOnChanges(changes: SimpleChanges): void {
-    // ✅ when parent changes selected value OR items update, re-sync display
-    if (changes['value'] || changes['items']) {
-      this.isUserTyping = false; // programmatic
+    // If items changed, re-map display text for current value
+    if (changes['items']) {
+      // do NOT flip isUserTyping to true here
       this.syncDisplayFromValue();
-      this.closeDropdown();
+      // keep dropdown closed unless user is actively typing
+      if (!this.isUserTyping) this.closeDropdown();
+      // if user is typing and loading finished, re-filter
+      if (this.isUserTyping && !this.loading && !this.disabled && this.inputValue) {
+        this.filterResults(this.inputValue);
+      }
     }
 
     if (changes['disabled'] && this.disabled) {
@@ -103,7 +106,7 @@ export class SelectInput implements OnChanges, ControlValueAccessor {
     }
   }
 
-  // ---------- Template handlers ----------
+  // ---------------- Template handlers ----------------
   onSearch(e: Event): void {
     if (this.disabled || this.loading) return;
 
@@ -114,9 +117,13 @@ export class SelectInput implements OnChanges, ControlValueAccessor {
 
     this.filterResults(text);
 
-    // optional: when user types, clear selection
+    /**
+     * Optional behavior:
+     * If user starts typing, clear the selected value.
+     * Keep it if you want "type-to-search but keep selection until pick".
+     */
     if (this.value !== null) {
-      this.emitSelection(null, null);
+      this.setValue(null, null, /*emitItem*/ true);
     }
   }
 
@@ -155,6 +162,11 @@ export class SelectInput implements OnChanges, ControlValueAccessor {
 
   onBlur(): void {
     this.isUserTyping = false;
+
+    // ✅ CVA: mark as touched
+    this.onTouched();
+
+    // allow click selection before closing
     setTimeout(() => this.closeDropdown(), 120);
   }
 
@@ -168,12 +180,11 @@ export class SelectInput implements OnChanges, ControlValueAccessor {
     this.isUserTyping = false;
 
     this.inputValue = item.name ?? '';
-    this.emitSelection(item.id ?? null, item);
+    this.setValue(item.id ?? null, item, /*emitItem*/ true);
 
     this.closeDropdown();
   }
 
-  // optional clear button hook (if your html has it)
   onClearClick(e?: MouseEvent): void {
     if (e) {
       e.preventDefault();
@@ -183,13 +194,27 @@ export class SelectInput implements OnChanges, ControlValueAccessor {
 
     this.isUserTyping = false;
     this.inputValue = '';
-    this.emitSelection(null, null);
+    this.setValue(null, null, /*emitItem*/ true);
     this.closeDropdown();
   }
 
   trackById = (_: number, item: SelectItem) => item.id;
 
-  // ---------- Helpers ----------
+  // ---------------- Helpers ----------------
+  private setValue(value: number | string | null, item: SelectItem | null, emitItem: boolean): void {
+    // internal
+    this.value = value;
+
+    // ✅ CVA: update the FormControl
+    this.onChange(value);
+
+    // ✅ CVA: consider change as interaction
+    this.onTouched();
+
+    // optional output
+    if (emitItem) this.itemChange.emit(item);
+  }
+
   private filterResults(text: string): void {
     const q = (text ?? '').trim().toLowerCase();
     if (!q) {
@@ -210,21 +235,18 @@ export class SelectInput implements OnChanges, ControlValueAccessor {
     this.activeIndex = -1;
   }
 
-  private emitSelection(value: number | string | null, item: SelectItem | null): void {
-    // parent updates [value] after this emit
-    this.valueChange.emit(value);
-    this.itemChange.emit(item);
-  }
-
   private syncDisplayFromValue(): void {
     if (this.value === null || this.value === undefined) {
-      this.inputValue = '';
+      // if user is typing, don't wipe their text
+      if (!this.isUserTyping) this.inputValue = '';
       return;
     }
 
-    // ✅ robust compare (string/number id)
+    // robust compare (string/number id)
     const found = (this.items ?? []).find((x) => String(x.id) === String(this.value));
-    this.inputValue = found?.name ?? '';
-  }
+    const name = found?.name ?? '';
 
+    // if user is typing, don't overwrite live typing
+    if (!this.isUserTyping) this.inputValue = name;
+  }
 }

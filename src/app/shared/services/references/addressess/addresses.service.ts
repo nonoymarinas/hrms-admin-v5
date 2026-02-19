@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, shareReplay } from 'rxjs';
-import { SelectItem, ChildSelectItem } from '../../../models/select-item';
+import { SelectItem, ChildSelectItem } from '../../../models/address-reference';
 import { ReferenceDataApi } from './addresses.api';
 import { AddressReferencesDto, BarangayListDto } from './addresses.dto';
 

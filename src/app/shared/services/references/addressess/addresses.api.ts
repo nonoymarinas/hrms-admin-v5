@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { AddressReferencesDto, BarangayListDto } from './addresses.dto';
-import { ChildSelectItem, SelectItem } from '../../../models/select-item';
 
 @Injectable({ providedIn: 'root' })
 export class ReferenceDataApi {
